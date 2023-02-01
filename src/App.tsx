@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import AddOns from "./components/AddOns";
+import AddOns, { AddOn } from "./components/AddOns";
 import SelectPlan from "./components/SelectPlan";
 import SideBar from "./components/SideBar";
 import Summary from "./components/Summary";
@@ -27,6 +27,7 @@ function App() {
   const [currentStep, setCurrentStep] = useState<TypeofStepsElement>(steps[0]);
   const [planOption, setPlanOption] = useState<TypeofPlansElement>(plans[0]);
   const [planType, setPlanType] = useState<TypePlanType>(planTypes[0]);
+  const [selectedAddOns, setSelectedAddOns] = useState<AddOn["title"][]>([]);
 
   function handleBackClick(e: React.MouseEvent) {
     e.preventDefault();
@@ -50,15 +51,19 @@ function App() {
       planType={planType}
       setPlanType={setPlanType}
     />,
-    <AddOns />,
-    <Summary />,
+    <AddOns
+      plan={planOption}
+      selectedAddOns={selectedAddOns}
+      setSelectedAddOns={setSelectedAddOns}
+    />,
+    <Summary planType={planType} addOns={selectedAddOns} plan={planOption} />,
   ];
 
   return (
     <main className="h-screen w-full items-center justify-center flex">
-      <div className="flex flex-row w-3/4 h-3/4 p-6 rounded-xl bg-white gap-8">
+      <div className="flex flex-row w-[800px] lg:w-[1100px] h-[650px] p-6 rounded-xl bg-white gap-8">
         <SideBar currentStep={currentStep} />
-        <div className="w-full px-16 pt-10 pb-4 flex flex-col justify-between">
+        <div className="w-full px-8 lg:px-16 pt-10 pb-4 flex flex-col justify-between">
           {/* Step Component is rendered here */}
           {stepComponents[steps.indexOf(currentStep)]}
           <div className="flex flex-row justify-between">
@@ -72,9 +77,9 @@ function App() {
             {currentStep === steps[steps.length - 1] ? (
               <button
                 onClick={handleNextClick}
-                className="bg-dark-blue text-lg text-white px-6 py-2 rounded-md"
+                className="bg-[#473EFE] text-lg text-white px-8 py-2 rounded-md"
               >
-                Submit
+                Confirm
               </button>
             ) : (
               <button

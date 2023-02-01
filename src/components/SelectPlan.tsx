@@ -7,7 +7,7 @@ type TCard = {
   yearly: string;
 };
 
-const cardData: TCard[] = [
+export const cardData: TCard[] = [
   {
     name: "Arcade",
     imgSrc: "./images/icon-arcade.svg",
@@ -53,13 +53,13 @@ export default function SelectPlan({
           You have the option of monthly or yearly billing.
         </p>
       </div>
-      <div className="flex flex-row gap-4 w-full">
+      <div className="grid grid-cols-3 gap-4 w-full">
         {cardData.map((card, idx) =>
           card.name === planType ? (
             <div
               onClick={() => setPlanType(card.name)}
               key={idx}
-              className="flex bg-blue-50 cursor-pointer flex-col w-1/3 gap-10 justify-between border hover:bg-blue-50 rounded-xl border-border-purple p-4"
+              className="flex bg-blue-50 cursor-pointer flex-col gap-10 justify-between border hover:bg-blue-50 rounded-xl border-border-purple p-3 lg:p-4"
             >
               <img width={50} height={50} src={card.imgSrc} alt="" />
               <div>
@@ -80,7 +80,7 @@ export default function SelectPlan({
             <div
               onClick={() => setPlanType(card.name)}
               key={idx}
-              className="flex cursor-pointer flex-col w-1/3 gap-10 justify-between border hover:bg-blue-50 rounded-xl border-border-purple p-4"
+              className="flex cursor-pointer flex-col gap-10 justify-between border hover:bg-blue-50 rounded-xl border-border-purple p-3 lg:p-4"
             >
               <img width={50} height={50} src={card.imgSrc} alt="" />
               <div>
@@ -103,22 +103,12 @@ export default function SelectPlan({
       <div className="flex flex-row gap-4 justify-center items-center bg-blue-50 py-4 rounded-xl">
         <p>Monthly</p>
         <label className="relative inline-flex items-center cursor-pointer">
-          {planOption === "monthly" ? (
-            <input
-              onChange={handleToggle}
-              type="checkbox"
-              value=""
-              className="sr-only peer"
-            />
-          ) : (
-            <input
-              checked
-              onChange={handleToggle}
-              type="checkbox"
-              value=""
-              className="sr-only peer"
-            />
-          )}
+          <input
+            onChange={handleToggle}
+            type="checkbox"
+            value={"monthly"}
+            className="sr-only peer"
+          />
           <div className="w-11 h-6 bg-dark-blue peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600"></div>
         </label>
         <p>Yearly</p>
